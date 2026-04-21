@@ -1,79 +1,96 @@
-# Product Starter
+# スターターテンプレート
 
-Claude Code への指示だけでプロダクトを構築できるスターターキットです。
+Claude Code や GitHub Copilot などの AI エージェントへの指示だけで高品質なプロダクトを構築できるスターターキットです。
+また、本リポジトリは**プロジェクト横断で利用可能なドキュメントテンプレート**や**AIエージェント向けの共通スキル・コマンド**を集約するハブとしても機能しています。
 
 ## ハーネスエンジニアリングとは
 
 このスターターキットは、**ハーネスエンジニアリング**の考え方に基づいて設計されています。
 
-ハーネスエンジニアリングとは、AIエージェントが正しく力を発揮できるように情報やルールを整えることを指します。CLAUDE.md による共通ルールの注入、Skills（スラッシュコマンド）による定型作業の標準化、dependency-cruiser による依存方向の機械的な検証など、**複数のガードレールを多重に敷くことで、AIが書くコードの品質を構造的に担保**します。
+ハーネスエンジニアリングとは、AIエージェントが正しく力を発揮できるように情報やルールを整えることを指します。`CLAUDE.md` による共通ルールの注入、Skills（スラッシュコマンド）による定型作業の標準化、dependency-cruiser による依存方向の機械的な検証など、**複数のガードレールを多重に敷くことで、AIが書くコードの品質を構造的に担保**します。
 
-これにより、Claude Code を複数セッション並列で回しても、設計が崩れにくい開発が可能になります。
+これにより、AIエージェントを複数セッション並列で回しても、設計が崩れにくい開発が可能になります。
 
 詳しい背景と実践事例については、以下の記事をご覧ください。
-
-> [Claude Code Webを10並列で回す！超並列LLMコーディングを実現するためのハーネスエンジニアリング](https://note.com/jujunjun110/n/n66306cab294a) — Jun Ito
 
 ### このスターターキットに組み込まれたガードレール
 
 | ガードレール | 仕組み |
 |---|---|
-| **設計ルールの注入** | CLAUDE.md + docs/ に DDD 4層・命名規約・依存ルールを明文化。全セッションが同じルールで動く |
-| **Skills（スラッシュコマンド）** | `/add-feature`, `/db-table`, `/add-page` など定型作業をコマンド化し、品質のばらつきを抑制 |
+| **設計ルールの注入** | `CLAUDE.md` や `docs/templates/` 配下にアーキテクチャ・命名規約・依存ルールを明文化し、AIにコンテキストを供給 |
+| **共通Skillsとプロンプト** | `.claude/skills/` や `.claude/commands/` にプロジェクト横断の定型作業コマンドを集約し、品質のばらつきを抑制 |
 | **依存方向の機械的検証** | dependency-cruiser で「domain は外部に依存しない」等のルールを CI で自動チェック |
 | **レイヤー別テスト戦略** | domain/application は Unit テスト、infrastructure は Integration テスト。テスト方針もドキュメント化 |
-| **品質チェックの自動化** | `pnpm verify` で lint → typecheck → test → depcruise を一括実行 |
+| **統合CI/CD** | `.github/workflows/` に集約されたワークフローにより、型チェックやlint、テストを一元的に自動化 |
 
-## 技術スタック
+## テンプレートとドキュメント管理
+
+本リポジトリの `docs/` には、新しいプロジェクトを立ち上げる際や新しい機能を設計する際にそのまま使える汎用テンプレートが用意されています。
+AIに「`docs/` の〇〇を使って新しい機能の要件定義をして」と指示するだけで、ベストプラクティスに基づいた仕様書が生成されます。
+
+**収録テンプレートの例:**
+- アーキテクチャ設計規約
+- フロントエンド規約
+- スタイルガイド
+- 品質チェック・テスト規約
+- AIチャット機能要件定義 / 実装計画
+- AIエージェント運用ガイド
+
+## 技術スタック (標準構成)
 
 - Next.js 15 (App Router) + Vercel
 - Supabase PostgreSQL + Prisma
 - shadcn/ui + Tailwind CSS
 - vitest + dependency-cruiser
 - Biome (lint/format)
+- AIツール: Vercel AI SDK, Streamdown
 
 ## はじめかた
 
 ### セットアップ
 
-Claude Code で `/init-pj` を実行してください。前提ツールのインストールからDB構築まで自動で行います。
+AIエージェント（Claude Code 等）を開き、`/init-pj` を実行してください。前提ツールのインストールからDB構築まで自動で行います。
 
 ## 使い方
 
-Claude Code に自然言語で指示するだけで機能を追加できます。
+AIに自然言語で指示するだけで、テンプレートやルールに沿った機能追加が可能です。
 
+**コマンド例:**
 ```
 「ユーザー管理機能を作って」
 「お気に入り機能を追加して」
 「/articles ページを作って」
-「Stripe決済と連携して」
 「○○テーブルにstatusカラムを追加して」
 「このエラーを直して: [エラーメッセージ]」
 ```
 
-## コマンド一覧
+## 開発コマンド一覧
 
 | コマンド | 内容 |
 |---|---|
 | `pnpm dev` | 開発サーバー起動 |
 | `pnpm verify` | 品質チェック（lint → typecheck → test → depcruise） |
-| `pnpm test:unit` | Unit テスト |
-| `pnpm lint:fix` | 自動フォーマット |
+| `pnpm test:unit` | Unit テスト実行 |
+| `pnpm lint:fix` | 自動フォーマット・Lint適用 |
 | `pnpm db:migrate` | DBマイグレーション |
 | `pnpm knip` | 未使用コード検出 |
 
 ## プロジェクト構成
 
-```
-apps/webapp/src/
-├── app/                    # ページ（Next.js App Router）
-├── backend/
-│   ├── domain/             # ビジネスルール（モデル、インターフェース）
-│   ├── application/        # ユースケース
-│   ├── infrastructure/     # DB・外部API実装
-│   └── presentation/       # DI組み立て、データ取得、Server Actions
-└── frontend/
-    └── components/         # UIコンポーネント
+```text
+starter-templete/
+├── .claude/                # プロジェクト横断のAI SkillsとCommands
+├── .github/workflows/      # 統合CI/CDワークフロー（型チェック、ビルド、テスト等）
+├── docs/                   # プロジェクト横断で使えるドキュメント・定義テンプレート
+└── apps/webapp/src/        # メインアプリケーション
+    ├── app/                # ページ（Next.js App Router）
+    ├── backend/            # バックエンド全体
+    │   ├── application/    # ユースケース
+    │   ├── domain/         # ビジネスルール（モデル、インターフェース）
+    │   ├── infrastructure/ # DB・外部API実装
+    │   └── presentation/   # DI組み立て、データ取得、Server Actions
+    ├── frontend/           # フロントエンド・UI全体
+    └── lib/                # 共有ライブラリ
 ```
 
 ## サンプル実装について
