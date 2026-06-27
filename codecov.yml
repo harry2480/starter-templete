@@ -1,32 +1,36 @@
+# Codecov 設定（テンプレート）
+# 詳細: https://docs.codecov.com/docs/codecov-yaml
 codecov:
   branch: develop
 
 coverage:
   status:
+    # プロジェクト全体のカバレッジ
     project:
       default:
-        target: 80%
-        threshold: 1%
+        target: auto        # 直近のベースより下がらなければ OK
+        threshold: 1%       # 1% までの低下は許容
+    # この PR/コミットで変更された行のカバレッジ
     patch:
       default:
         target: 80%
+        threshold: 0%
 
+# 計測対象から除外するパス
 ignore:
-  - "web/*.config.*"
-  - "web/vitest.*"
-  - "web/src/test-utils/**"
-  - "web/src/components/ui/**"
-  - "web/src/app/**/page.tsx"
-  - "web/src/app/**/layout.tsx"
-  - "web/src/app/**/loading.tsx"
-  - "web/src/app/**/not-found.tsx"
-  - "web/src/app/**/error.tsx"
-  - "web/**/types.ts"
-  - "web/**/types/index.ts"
-  - "web/src/lib/telemetry/**"
-  - "web/src/config/**"
+  - "**/*.test.ts"
+  - "**/*.d.ts"
+  - "apps/webapp/test/**"
+  - "apps/webapp/prisma/**"
+  - "apps/webapp/*.config.*"
+  - "apps/webapp/src/app/**/page.tsx"
+  - "apps/webapp/src/app/**/layout.tsx"
+  - "apps/webapp/src/app/**/loading.tsx"
+  - "apps/webapp/src/app/**/not-found.tsx"
+  - "apps/webapp/src/app/**/error.tsx"
 
+# PR にカバレッジコメントを投稿
 comment:
-  layout: "reach,diff,flags,files"
+  layout: "reach, diff, flags, files"
   behavior: default
-  require_changes: true
+  require_changes: false
