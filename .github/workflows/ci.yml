@@ -13,7 +13,7 @@ jobs:
     outputs:
       app-changed: ${{ steps.changes.outputs.app }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: コードをチェックアウト
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -95,7 +95,7 @@ jobs:
         working-directory: app
     steps:
       - name: コードをチェックアウト
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: pnpm をセットアップ
         uses: pnpm/action-setup@v4
