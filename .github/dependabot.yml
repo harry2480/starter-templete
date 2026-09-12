@@ -12,13 +12,11 @@ updates:
       time: "09:00"
       timezone: "Asia/Tokyo"
     open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
     commit-message:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"
     groups:
-      # マイナー・パッチはまとめて 1 PR にする
+      # Patch/minor updates can use the guarded auto-merge workflow after CI passes.
       minor-and-patch:
         update-types:
           - "minor"
@@ -33,8 +31,5 @@ updates:
       time: "09:00"
       timezone: "Asia/Tokyo"
     open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "github-actions"
     commit-message:
       prefix: "chore(ci)"

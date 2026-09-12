@@ -9,6 +9,10 @@ Mac をクリーンインストールした直後の人でもプロジェクト�
 
 各ステップで **コマンドの存在確認を行い、未インストールなら案内またはインストールする**。ユーザーには進捗を都度報告し、何をやっているか分かるようにする。
 
+### Loop Engineering の選択
+
+初期設定時にLoop Engineeringを利用するか確認する。利用する場合は `docs/loop-engineering.md` を読み、実際のdefault branch、CIコマンド、package manager、monorepo構成に合わせてLoop関連workflow・CodeRabbit設定を調整し、必要なIssueラベルを案内する。利用しない場合はLoop用workflowとラベルを無効化し、通常PRフローを維持する。GitHubのbranch protectionやAllow auto-merge設定を確認・変更したと偽らず、必要なGitHub UI設定を利用者に案内する。
+
 ---
 
 ### Step 1: Homebrew
