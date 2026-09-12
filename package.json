@@ -17,6 +17,7 @@
 		"db:seed": "pnpm --filter webapp prisma db seed",
 		"db:reset": "pnpm --filter webapp prisma migrate reset",
 		"db:migrate": "pnpm --filter webapp prisma migrate dev",
+		"merge": "bash scripts/merge-pr.sh",
 		"prepare": "simple-git-hooks"
 	},
 	"simple-git-hooks": {
