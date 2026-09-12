@@ -33,7 +33,8 @@ AIに「`docs/` の〇〇を使って新しい機能の要件定義をして」�
 - フロントエンド規約
 - スタイルガイド
 - 品質チェック・テスト規約
-- AIチャット機能要件定義 / 実装計画
+- 実装計画（プロジェクト設計時のチェックリスト）
+- AIチャット機能要件定義
 - AIエージェント運用ガイド
 
 ## 技術スタック (標準構成)
@@ -75,7 +76,25 @@ Issueから実装・修復・PRまでを反復するLoop Engineeringを使う場
 | `pnpm test:unit` | Unit テスト実行 |
 | `pnpm lint:fix` | 自動フォーマット・Lint適用 |
 | `pnpm db:migrate` | DBマイグレーション |
+| `pnpm merge [PR]` | PR マージ＋ブランチ削除・リモート追跡ブランチ削除を自動化 |
 | `pnpm knip` | 未使用コード検出 |
+
+### PR マージワークフロー
+
+`pnpm merge` コマンドで PR マージからブランチクリーンアップまでを一括実行できます：
+
+```bash
+# 現在のブランチの PR をマージ
+pnpm merge
+
+# 指定した PR をマージ
+pnpm merge 42
+
+# PR URL でマージ
+pnpm merge https://github.com/owner/repo/pull/42
+```
+
+このコマンドは Claude Code でも Codex などの他のエディタでも使用でき、PR マージ時の手作業を削減できます。
 
 ## プロジェクト構成
 
