@@ -19,7 +19,11 @@ pnpm test:integration  # Integration テスト（要 DATABASE_URL, INTEGRATION_T
 pnpm lint:fix          # 自動フォーマット
 pnpm db:migrate        # DBマイグレーション作成・適用
 pnpm knip              # 未使用コード検出
+scripts/loop-once.sh   # Loopを1回だけ実行
+scripts/loop.sh        # 最大5回までLoopを反復（LOOP_MAX_ITERATIONSで調整）
 ```
+
+Loopを使う場合は [docs/loop-engineering.md](docs/loop-engineering.md) の初期設定、Issue信頼境界、auto-merge条件に従う。Loop関連コマンドは `.claude/commands/loop-*.md` に定義する。
 
 ---
 
@@ -87,7 +91,8 @@ src/backend/
 
 詳細な設計ルールは必要に応じて docs/ を読むこと:
 
-- docs/architecture.md — DDD 4層・依存ルール・命名規約
-- docs/frontend.md — フロントエンド規約（データフロー・UI スタック）
-- docs/infrastructure.md — インフラ規約（monorepo・デプロイ・DB・Stub パターン）
-- docs/quality.md — テスト方針・verify コマンド
+- docs/アーキテクチャ.md — DDD 4層・依存ルール・命名規約
+- docs/フロントエンド規約.md — フロントエンドのデータフローとUI規約
+- docs/インフラストラクチャ規約.md — monorepo・デプロイ・DB・Stub パターン
+- docs/品質チェック・テスト規約.md — テスト方針・verify コマンド
+- docs/loop-engineering.md — Loop運用と安全境界
