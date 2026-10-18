@@ -29,6 +29,13 @@ Loopを使う場合は [docs/loop-engineering.md](docs/loop-engineering.md) の�
 
 ## Claude Code への指示（利用者は読まなくてOK）
 
+### 出力言語
+
+- ユーザーへの応答・説明・質問・作業報告はすべて日本語で書く
+- コードコメント、コミットメッセージ、PR タイトル・本文、Issue、ドキュメントも日本語で書く
+- コード識別子（変数名・関数名・ファイル名）、コマンド、ライブラリ名、エラーメッセージの引用は原文のまま残す
+- Conventional Commits のプレフィックス（`feat:` `fix:` など）は英語のまま、説明部分を日本語にする
+
 ### アーキテクチャ
 
 pnpm workspace monorepo。`apps/webapp/` に Next.js 15 App Router アプリ。
